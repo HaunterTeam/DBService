@@ -1,0 +1,4 @@
+CREATE TABLE MeasureTypes (measure text PRIMARY KEY);
+CREATE TABLE HealthProfile (idProfile INTEGER PRIMARY KEY, weight float, height float);
+CREATE TABLE Person (idPerson integer PRIMARY KEY, firstname TEXT, lastname text, birthdate datetime);
+CREATE TABLE "Measure" (idMeasure integer PRIMARY KEY, value float, created datetime, person integer, measureType text);
