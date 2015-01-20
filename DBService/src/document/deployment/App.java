@@ -10,7 +10,7 @@ public class App {
     //public static String SERVER_URL = "http://10.23.10.148";
 
     public static String PORT = "8443";
-    public static String PEOPLE_BASE_URL = "/mirko-morandi/ws/people";
+    public static String PEOPLE_BASE_URL = "/dbservice/ws/people";
 
     public static String getPeopleEndpointURL() {
         return SERVER_URL+":"+PORT+PEOPLE_BASE_URL;
@@ -21,8 +21,6 @@ public class App {
         System.out.println("--> Published at = " + getPeopleEndpointURL());
         Endpoint.publish(getPeopleEndpointURL(), new PeopleImpl());
 
-        double bm = Person.getLastBMI(1);
-        double bm1=Person.getOldBMI(1);
 
         System.out.print("done");
     }

@@ -194,9 +194,10 @@ public class Person implements Serializable{
         return list;
 
     }
-    public static double getLastBMI(int idPerson){
+    public void setLastBMI(double bmi){}
+    public double getLastBMI(){
 
-        List<Measure> current = getCurrentHealth((long)idPerson);
+        List<Measure> current = getCurrentHealth(getId());
 
         double height = -1, weight = -1;
 
@@ -213,14 +214,15 @@ public class Person implements Serializable{
         return weight / ((height/100)*(height/100));
 
     }
-    public static double getOldBMI(int idPerson){
+    public void setOldBMI(double bmi){}
+    public  double getOldBMI(){
 
         EntityManager em = ModelDao.instance.createEntityManager();
 
         double height = -1, weight = -1;
 
         List<Measure> current = em.createNamedQuery("Person.getOldHealthForBMI",Measure.class)
-                .setParameter("id", Person.getPersonByID((long) idPerson))
+                .setParameter("id", Person.getPersonByID(getId()))
                 .setParameter("measure",MeasureType.getMeasureFromString("height"))
                 .getResultList();
 
@@ -228,7 +230,7 @@ public class Person implements Serializable{
         height = Double.parseDouble(current.get(0).getMeasureValue());
 
         current = em.createNamedQuery("Person.getOldHealthForBMI", Measure.class)
-                .setParameter("id", Person.getPersonByID((long) idPerson))
+                .setParameter("id", Person.getPersonByID(getId()))
                 .setParameter("measure", MeasureType.getMeasureFromString("weight"))
                 .getResultList();
         ModelDao.instance.closeConnections(em);
