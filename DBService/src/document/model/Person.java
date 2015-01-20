@@ -24,7 +24,8 @@ import java.util.List;
 @NamedQueries({@NamedQuery(name="Person.findAll", query="SELECT p from Person p"),
             @NamedQuery(name = "Person.findAllNames", query="select p.firstname from Person p"),
             @NamedQuery(name = "Person.findPeopleByMeasureRange", query="select p from Person p join Measure m where p.id = m.mid and m.measureType = :typeVal and m.measureValue > :minVal and m.measureValue < :maxVal"),
-            @NamedQuery(name = "Person.getCurrentHealth", query="select distinct m from Person p join Measure m where :id = m.person group by m.measureType order by m.dateRegistered desc")
+            @NamedQuery(name = "Person.getCurrentHealth", query="select distinct m from Person p join Measure m where :id = m.person group by m.measureType order by m.dateRegistered desc"),
+            @NamedQuery(name="Person.getOldHealthForBMI", query = "select distinct m from Person p join Measure m where :id = m.person and m.measureType = :measure order by m.dateRegistered desc")
 })
 //@XmlRootElement(name = "person")
 public class Person implements Serializable{
@@ -193,6 +194,53 @@ public class Person implements Serializable{
         return list;
 
     }
+    public static double getLastBMI(int idPerson){
+
+        List<Measure> current = getCurrentHealth((long)idPerson);
+
+        double height = -1, weight = -1;
+
+        for(Measure m:current){
+            if(m.getMeasureType().equals("weight"))
+                weight = Double.parseDouble(m.getMeasureValue());
+            else if(m.getMeasureType().equals("height"))
+                height = Double.parseDouble(m.getMeasureValue());
+        }
+
+        if(height < 0 || weight < 0)
+            return -1;
+
+        return weight / ((height/100)*(height/100));
+
+    }
+    public static double getOldBMI(int idPerson){
+
+        EntityManager em = ModelDao.instance.createEntityManager();
+
+        double height = -1, weight = -1;
+
+        List<Measure> current = em.createNamedQuery("Person.getOldHealthForBMI",Measure.class)
+                .setParameter("id", Person.getPersonByID((long) idPerson))
+                .setParameter("measure",MeasureType.getMeasureFromString("height"))
+                .getResultList();
+
+        //one usually do not change height
+        height = Double.parseDouble(current.get(0).getMeasureValue());
+
+        current = em.createNamedQuery("Person.getOldHealthForBMI", Measure.class)
+                .setParameter("id", Person.getPersonByID((long) idPerson))
+                .setParameter("measure", MeasureType.getMeasureFromString("weight"))
+                .getResultList();
+        ModelDao.instance.closeConnections(em);
+
+        //there are no older records of height
+        if(current.size() <= 1)
+            return -1;
+        weight = Double.parseDouble(current.get(1).getMeasureValue());
+
+        return weight / ((height/100)*(height/100));
+    }
+
 
     public static Person savePerson(Person p) {
         EntityManager em = ModelDao.instance.createEntityManager();

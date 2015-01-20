@@ -1,5 +1,6 @@
 package document.deployment;
 
+import document.model.Person;
 import document.ws.PeopleImpl;
 
 import javax.xml.ws.Endpoint;
@@ -19,5 +20,10 @@ public class App {
         System.out.println("Starting People Service...");
         System.out.println("--> Published at = " + getPeopleEndpointURL());
         Endpoint.publish(getPeopleEndpointURL(), new PeopleImpl());
+
+        double bm = Person.getLastBMI(1);
+        double bm1=Person.getOldBMI(1);
+
+        System.out.print("done");
     }
 }

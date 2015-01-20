@@ -26,8 +26,9 @@ import java.util.List;
 @NamedQueries({@NamedQuery(name="HealthMeasureHistory.findAll", query="SELECT h FROM Measure h"),
         @NamedQuery(name="HealthMeasureHistory.findMeasuresByPersonAndType", query="select  h from Measure h where h.person = :person and h.measureType = :mtype"),
         @NamedQuery(name="HealthMeasureHistory.findMeasuresByPersonAndMID", query="select  h from Measure h where h.person = :person and h.measureType = :mtype and h.mid = :mid"),
-        @NamedQuery(name="HealthMeasureHistory.findMeasuresByRange", query="select  h from Measure h where h.person = :person and h.measureType = :mtype and h.dateRegistered between :before and :after")
-        })
+        @NamedQuery(name="HealthMeasureHistory.findMeasuresByRange", query="select  h from Measure h where h.person = :person and h.measureType = :mtype and h.dateRegistered between :before and :after"),
+        @NamedQuery(name="Measure.find", query="SELECT m FROM Measure m WHERE m.person = :idface")
+})
 
 public class Measure implements Serializable{
     private static final long serialVersionUID = 1L;
