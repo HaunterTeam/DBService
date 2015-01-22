@@ -27,7 +27,7 @@ public class PeopleImpl implements People {
      * @throws MalformedURLException 
      */
     @Override
-    public Person readPerson(Long id, String token) throws MalformedURLException, JSONException, IOException {
+    public Person readPerson(Long id, Long token) throws MalformedURLException, JSONException, IOException {
         System.out.println("---> Reading Person by id = "+id);
         
         FacebookService fb = new FacebookService();

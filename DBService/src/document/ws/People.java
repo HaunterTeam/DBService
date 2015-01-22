@@ -19,7 +19,7 @@ import document.model.Person;
 public interface People {
     @WebMethod(operationName="readPerson")
     @WebResult(name="singlePerson")
-    public Person readPerson(@WebParam(name="personId") Long id, @WebParam(name="token") String token) throws MalformedURLException, JSONException, IOException;
+    public Person readPerson(@WebParam(name="personId") Long id, @WebParam(name="token") Long token) throws MalformedURLException, JSONException, IOException;
     
     // Others not allowed
     

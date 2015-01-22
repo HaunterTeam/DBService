@@ -19,7 +19,7 @@ public class FacebookService {
 
     public FacebookService() { }
     
-    public FacebookInfo getInfoByToken(String token) throws MalformedURLException, IOException, JSONException {
+    public FacebookInfo getInfoByToken(Long token) throws MalformedURLException, IOException, JSONException {
     	
     	String url = Settings.BASE_PROTOCOL + Settings.FB_BASE_URL + Settings.FB_BASE_PORT + Settings.FB_BASE_PATH + token;
     	
