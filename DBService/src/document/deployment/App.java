@@ -21,11 +21,9 @@ public class App {
     public static void main(String[] args) throws IllegalArgumentException, IOException, URISyntaxException {
     	
         String protocol = Settings.BASE_PROTOCOL;
-        String port = System.getenv("PORT");
-        if (port == null || port.isEmpty()) {
-            port = Settings.BASE_PORT;
-        }
-        String hostname = InetAddress.getLocalHost().getHostAddress();
+        String port = Settings.BASE_PORT;
+        //String hostname = InetAddress.getLocalHost().getHostAddress();
+        String hostname = Settings.BASE_DEPLOY_URL;
         String path = Settings.BASE_PATH;
         if (hostname.equals(Settings.BASE_URL))
         {
