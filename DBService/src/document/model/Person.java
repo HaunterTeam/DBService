@@ -61,9 +61,7 @@ public class Person implements Serializable{
     private List<Measure> measureHistory;
 
 
-    public Person(){
-
-    }
+    public Person(){ }
 
     //@XmlElementWrapper(name="currentHealth")
     public List<Measure> getCurrentHealth(){
@@ -133,8 +131,7 @@ public class Person implements Serializable{
         this.measureHistory = historyList;
     }
 
-    public static Person getPersonByID(Long idPerson){
-
+    public static Person getPersonByID(Long idPerson) {
         EntityManager em = ModelDao.instance.createEntityManager();
         Person p = em.find(Person.class,idPerson.intValue());
         ModelDao.instance.closeConnections(em);
