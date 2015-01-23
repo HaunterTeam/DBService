@@ -6,6 +6,12 @@ public final class Settings {
 	public static final String REQ_TYPE = "GET";
 	public static final String BASE_PROTOCOL = "http://";
 	
+	public static final String BASE_PORT = "8443";
+	public static final String BASE_URL = "localhost";
+	public static String BASE_PATH = "/dbservice/ws/people";
+	
+	
+	
 	// Facebook Service
 	public static final String LOCAL_FB_BASE_URL = "localhost:";
 	public static final String LOCAL_FB_BASE_PORT = "8020";
