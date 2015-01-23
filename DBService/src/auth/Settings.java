@@ -6,7 +6,7 @@ public final class Settings {
 	public static final String REQ_TYPE = "GET";
 	public static final String BASE_PROTOCOL = "http://";
 	
-	public static final String BASE_PORT = "8443";
+	public static final String BASE_PORT = "8088";
 	public static final String BASE_URL = "localhost";
 	public static String BASE_PATH = "/dbservice/ws/people";
 	
