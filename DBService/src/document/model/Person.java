@@ -196,7 +196,7 @@ public class Person implements Serializable{
         return list;
 
     }
-    public void setLastBMI(double bmi){}
+    //public void setLastBMI(double bmi){}
     public double getLastBMI(){
 
         List<Measure> current = getCurrentHealth(getId());
@@ -216,7 +216,7 @@ public class Person implements Serializable{
         return weight / ((height/100)*(height/100));
 
     }
-    public void setOldBMI(double bmi){}
+    //public void setOldBMI(double bmi){}
     public  double getOldBMI(){
 
         EntityManager em = ModelDao.instance.createEntityManager();
@@ -229,7 +229,8 @@ public class Person implements Serializable{
                 .getResultList();
 
         //one usually do not change height
-        height = Double.parseDouble(current.get(0).getMeasureValue());
+        if(current.size() > 0) //ok, let's assume that someone has forgotten to add his own height
+            height = Double.parseDouble(current.get(0).getMeasureValue());
 
         current = em.createNamedQuery("Person.getOldHealthForBMI", Measure.class)
                 .setParameter("id", Person.getPersonByID(getId()))

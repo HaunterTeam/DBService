@@ -125,9 +125,9 @@ public class Measure implements Serializable{
         return measureType;
     }
 
-    public void setMeasureType(MeasureType measureType) {
+    /*public void setMeasureType(MeasureType measureType) {
         this.measureType = measureType;
-    }
+    }*/
 
     public void setRandomDate() {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR); 		// 1. get the current year
@@ -239,7 +239,7 @@ public class Measure implements Serializable{
         measureHistory.setTodayDate();
         measureHistory.setPerson(p);
 
-        measureHistory.setMeasureType(MeasureType.getMeasureFromString(measureType));
+        measureHistory.setMeasureType(measureType);
         return Measure.saveMeasure(measureHistory);
 
     }
