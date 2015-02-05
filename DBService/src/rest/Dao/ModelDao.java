@@ -34,17 +34,7 @@ public enum ModelDao {
         }
         return null;
     }
-    public DozerBeanMapper createDozerMapper()
-    {
-        List<String> myMappingFiles = new ArrayList<String>();
-        myMappingFiles.add("dozermappings.xml");
 
-        DozerBeanMapper mapper = new DozerBeanMapper();
-        mapper.setMappingFiles(myMappingFiles);
-
-        return mapper;
-
-    }
 
     public void closeConnections(EntityManager em) {
         em.close();
