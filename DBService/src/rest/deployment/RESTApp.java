@@ -7,14 +7,13 @@ import java.util.List;
 
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import rest.model.Person;
 
 public class RESTApp extends Thread
 {
-    private static final URI BASE_URI = URI.create("http://localhost:9091/dbservice/");
+    //private static final URI BASE_URI = URI.create("http://localhost:9091/dbservice/");
 
     //deployment url
-    //private static final URI BASE_URI = URI.create("http://95.85.59.254:8086/dbservice/");
+    private static final URI BASE_URI = URI.create("http://95.85.59.254:8086/dbservice/");
     public  void run ()
     {
     	System.out.println("Starting RESTFul DB Service...");
