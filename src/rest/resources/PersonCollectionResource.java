@@ -107,10 +107,25 @@ public class PersonCollectionResource {
     @Path("{personId}/{measure}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Measure insertMeasureByPerson(@PathParam("personId") int id, @PathParam("measure") String measure, Measure newMeasure) {
+    public Measure insertMeasureByPerson(@PathParam("personId") int id, @PathParam("measure") String measure,@QueryParam("token") String token, Measure newMeasure)
+            throws Exception
+    {
+        Person p = Person.getPersonByID((long)id);
 
-        newMeasure.setPerson(Person.getPersonByID((long)id));
+        if(p == null && !token.equals("")) {
+            FacebookService fs = new FacebookService();
+            FacebookInfo fi = fs.getInfoByToken(token);
+            p = new Person();
+            p.setFirstname(fi.getFirst_name());
+            p.setId((long)fi.getId());
+            p = Person.savePerson(p);
+        }
+        else
+            throw new NotFoundException("This person does not exist");
+
+        newMeasure.setPerson(p);
         newMeasure.setMeasureType(measure);
+        newMeasure.setTodayDate();
 
         return Measure.saveMeasure(newMeasure);
     }
