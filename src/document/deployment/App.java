@@ -25,8 +25,7 @@ public class App {
     	
         String protocol = Settings.BASE_PROTOCOL;
         String port = Settings.BASE_PORT;
-        //String hostname = InetAddress.getLocalHost().getHostAddress();
-        String hostname = Settings.BASE_DEPLOY_URL;
+        String hostname = InetAddress.getLocalHost().getHostAddress();
         //String hostname = "localhost";
         String path = Settings.BASE_PATH;
         if (hostname.equals(Settings.BASE_URL))
