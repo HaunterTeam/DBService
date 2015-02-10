@@ -150,8 +150,7 @@ public class PersonCollectionResource {
     public Measure insertMeasureFB(@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
             throws Exception
     {
-
-
+        System.out.println("This is the post working");
 
         FacebookService fs = new FacebookService();
         FacebookInfo fi = fs.getInfoByToken(token);
