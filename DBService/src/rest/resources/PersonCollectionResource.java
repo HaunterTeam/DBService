@@ -107,7 +107,7 @@ public class PersonCollectionResource {
     @Path("{personId}/{measure}")
     @Produces({"application/javascript"})
     @Consumes(MediaType.APPLICATION_JSON)
-    public String insertMeasureByPerson(@PathParam("personId") int id, @PathParam("measure") String measure,@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
+    public String insertMeasureByPerson(@PathParam("personId") long id, @PathParam("measure") String measure,@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
             throws Exception
     {
         Person p = Person.getPersonByID((long)id);
