@@ -5,14 +5,11 @@ package document.model;
  */
 
 import document.dao.ModelDao;
-import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import java.text.SimpleDateFormat;

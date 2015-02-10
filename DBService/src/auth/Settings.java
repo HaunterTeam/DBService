@@ -8,7 +8,7 @@ public final class Settings {
 	
 	public static final String BASE_PORT = "8088";
 	public static final String BASE_URL = "localhost";
-	// public static final String BASE_DEPLOY_URL = "95.85.59.245";
+	public static final String BASE_DEPLOY_URL = "95.85.59.245";
 
 	public static String BASE_PATH = "/dbservice/ws/people";
 	

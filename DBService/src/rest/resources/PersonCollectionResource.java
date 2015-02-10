@@ -3,11 +3,9 @@ package rest.resources;
 import auth.FacebookInfo;
 import auth.FacebookService;
 import document.model.Measure;
-import document.model.MeasureType;
 import document.model.Person;
 
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.*;
@@ -105,9 +103,9 @@ public class PersonCollectionResource {
 
     @POST
     @Path("{personId}/{measure}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({"application/javascript"})
     @Consumes(MediaType.APPLICATION_JSON)
-    public Measure insertMeasureByPerson(@PathParam("personId") int id, @PathParam("measure") String measure,@QueryParam("token") String token, Measure newMeasure)
+    public String insertMeasureByPerson(@PathParam("personId") long id, @PathParam("measure") String measure,@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
             throws Exception
     {
         Person p = Person.getPersonByID((long)id);
@@ -127,7 +125,7 @@ public class PersonCollectionResource {
         newMeasure.setMeasureType(measure);
         newMeasure.setTodayDate();
 
-        return Measure.saveMeasure(newMeasure);
+        return callback+"("+Measure.saveMeasure(newMeasure).toString()+")";
     }
 
     @PUT
@@ -144,6 +142,33 @@ public class PersonCollectionResource {
         //tempMeasure.setCreated(measureHistory.getCreated());
         Measure.updateMeasure(tempMeasure);
         return tempMeasure;
+    }
+    @POST
+    @Path("/facebook")
+    @Produces({"application/javascript"})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String insertMeasureFB(@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
+            throws Exception
+    {
+
+
+
+        FacebookService fs = new FacebookService();
+        FacebookInfo fi = fs.getInfoByToken(token);
+        Person p = Person.getPersonFromFB(fi.getId());
+        if(p == null) {
+            p= new Person();
+            p.setFirstname(fi.getFirst_name());
+            p.setId((long) fi.getId());
+            p = Person.savePerson(p);
+        }
+        else
+            throw new NotFoundException("This person does not exist");
+
+        newMeasure.setPerson(p);
+        newMeasure.setTodayDate();
+
+        return callback+"("+Measure.saveMeasure(newMeasure).toString()+")";
     }
 
 
