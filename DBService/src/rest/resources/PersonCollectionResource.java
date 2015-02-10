@@ -145,9 +145,9 @@ public class PersonCollectionResource {
     }
     @POST
     @Path("/facebook")
-    @Produces({"application/javascript"})
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String insertMeasureFB(@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
+    public Measure insertMeasureFB(@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
             throws Exception
     {
 
@@ -168,7 +168,7 @@ public class PersonCollectionResource {
         newMeasure.setPerson(p);
         newMeasure.setTodayDate();
 
-        return callback+"("+Measure.saveMeasure(newMeasure).toString()+")";
+        return Measure.saveMeasure(newMeasure);
     }
 
 
