@@ -111,6 +111,7 @@ public class PersonCollectionResource {
 
         newMeasure.setPerson(Person.getPersonByID((long)id));
         newMeasure.setMeasureType(measure);
+        newMeasure.setTodayDate();
 
         return Measure.saveMeasure(newMeasure);
     }
