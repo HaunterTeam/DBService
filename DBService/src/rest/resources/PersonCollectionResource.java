@@ -3,11 +3,9 @@ package rest.resources;
 import auth.FacebookInfo;
 import auth.FacebookService;
 import document.model.Measure;
-import document.model.MeasureType;
 import document.model.Person;
 
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.*;
@@ -144,6 +142,33 @@ public class PersonCollectionResource {
         //tempMeasure.setCreated(measureHistory.getCreated());
         Measure.updateMeasure(tempMeasure);
         return tempMeasure;
+    }
+    @POST
+    @Path("/facebook")
+    @Produces({"application/javascript"})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String insertMeasureFB(@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
+            throws Exception
+    {
+
+
+
+        FacebookService fs = new FacebookService();
+        FacebookInfo fi = fs.getInfoByToken(token);
+        Person p = Person.getPersonFromFB(fi.getId());
+        if(p == null) {
+            p= new Person();
+            p.setFirstname(fi.getFirst_name());
+            p.setId((long) fi.getId());
+            p = Person.savePerson(p);
+        }
+        else
+            throw new NotFoundException("This person does not exist");
+
+        newMeasure.setPerson(p);
+        newMeasure.setTodayDate();
+
+        return callback+"("+Measure.saveMeasure(newMeasure).toString()+")";
     }
 
 

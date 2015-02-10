@@ -30,7 +30,9 @@ import document.dao.ModelDao;
             @NamedQuery(name = "Person.findAllNames", query="select p.firstname from Person p"),
             @NamedQuery(name = "Person.findPeopleByMeasureRange", query="select p from Person p join Measure m where p.id = m.mid and m.measureType = :typeVal and m.measureValue > :minVal and m.measureValue < :maxVal"),
             @NamedQuery(name = "Person.getCurrentHealth", query="select distinct m from Person p join Measure m where :id = m.person group by m.measureType order by m.dateRegistered desc"),
-            @NamedQuery(name="Person.getOldHealthForBMI", query = "select distinct m from Person p join Measure m where :id = m.person and m.measureType = :measure order by m.dateRegistered desc")
+            @NamedQuery(name="Person.getOldHealthForBMI", query = "select distinct m from Person p join Measure m where :id = m.person and m.measureType = :measure order by m.dateRegistered desc"),
+            @NamedQuery(name="Person.findFromFB", query = "select  p from Person p where :fb = p.fb_id")
+
 })
 //@XmlRootElement(name = "person")
 public class Person implements Serializable{
@@ -55,6 +57,9 @@ public class Person implements Serializable{
     //@Temporal(TemporalType.DATE)
     @Column(name="birthdate")
     private String birthdate;
+
+    @Column(name="fb_id")
+    private double fb_id;
 
     @XmlTransient
     @OneToMany(mappedBy = "person",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -245,7 +250,17 @@ public class Person implements Serializable{
 
         return weight / ((height/100)*(height/100));
     }
+    public static Person getPersonFromFB(double id) {
 
+        EntityManager em = ModelDao.instance.createEntityManager();
+
+        List<Person> list = em.createNamedQuery("Person.findFromFB", Person.class)
+                .setParameter("fb", id)
+                .getResultList();
+        ModelDao.instance.closeConnections(em);
+
+        return list == null?null:list.get(0);
+    }
 
     public static Person savePerson(Person p) {
         EntityManager em = ModelDao.instance.createEntityManager();
@@ -274,6 +289,14 @@ public class Person implements Serializable{
         em.remove(p);
         tx.commit();
         ModelDao.instance.closeConnections(em);
+    }
+
+    public double getFb_id() {
+        return fb_id;
+    }
+
+    public void setFb_id(double fb_id) {
+        this.fb_id = fb_id;
     }
 
     // mappedBy must be equal to the name of the attribute in LifeStatus that maps this relation
