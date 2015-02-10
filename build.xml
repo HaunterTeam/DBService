@@ -112,10 +112,10 @@
 		</copy>
 		<echo message="${lib.dir}/jars-jsr311-api-1.1.1.jar has been deleted" />
 	    <delete file="${lib.dir}/jars-jsr311-api-1.1.1.jar" />
-	    <ivy:makepom ivyfile="${basedir}/ivy.xml" pomfile="${basedir}/pom.xml" conf="default,runtime">
+	    <!-- <ivy:makepom ivyfile="${basedir}/ivy.xml" pomfile="${basedir}/pom.xml" conf="default,runtime">
 		   <mapping conf="default" scope="compile"/>
 		   <mapping conf="runtime" scope="runtime"/>
-		</ivy:makepom>
+		</ivy:makepom> -->
 	</target>
 
 	<target name="execute.runServer">
