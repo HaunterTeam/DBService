@@ -49,7 +49,7 @@ public class PeopleImpl implements People {
         	
         	fi = fb.getInfoByToken(token);
         	if(fi.getId() == id || true /* DEBUG */) {
-        		p = Person.getPersonByID(id);
+        		p = Person.getPersonFromFB(fi.getId());
         	} else {
         		System.err.println("User Not Authorized to read these data");
         	}
