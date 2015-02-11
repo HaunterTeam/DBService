@@ -173,7 +173,8 @@ public class PersonCollectionResource {
             newMeasure.setPerson(p);
             newMeasure.setTodayDate();
         }
-
+        System.out.println("Measure value --> "+newMeasure.getMeasureValue());
+        System.out.println("Measure type --> "+newMeasure.getMeasureType());
         return Measure.saveMeasure(newMeasure);
     }
 
