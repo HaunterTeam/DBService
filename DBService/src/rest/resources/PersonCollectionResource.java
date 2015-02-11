@@ -155,17 +155,24 @@ public class PersonCollectionResource {
         FacebookService fs = new FacebookService();
         FacebookInfo fi = fs.getInfoByToken(token);
         Person p = Person.getPersonFromFB(fi.getId());
-        if(p != null) {
-            p= new Person();
-            p.setFirstname(fi.getFirst_name());
-            p.setId((long) fi.getId());
-            p = Person.savePerson(p);
-        }
-        else
-            throw new NotFoundException("This person does not exist");
+        if(p == null) {
 
-        newMeasure.setPerson(p);
-        newMeasure.setTodayDate();
+            if(fi == null)
+                throw new NotFoundException("This person does not exist");
+            else
+            {
+                p= new Person();
+                p.setFirstname(fi.getFirst_name());
+                p.setId((long) fi.getId());
+                p = Person.savePerson(p);
+                newMeasure.setPerson(p);
+                newMeasure.setTodayDate();
+            }
+        }
+        else{
+            newMeasure.setPerson(p);
+            newMeasure.setTodayDate();
+        }
 
         return Measure.saveMeasure(newMeasure);
     }
