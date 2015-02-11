@@ -31,8 +31,7 @@ public class PeopleImpl implements People {
      */
     @Override
     public Person readPerson(Long id, String token) throws MalformedURLException, JSONException, IOException {
-        System.out.println("---> Reading Person by id = "+id);
-        
+
         // FacebookService called
         FacebookService fb = new FacebookService();
         FacebookInfo fi = null;
@@ -48,9 +47,11 @@ public class PeopleImpl implements People {
         try {
         	
         	fi = fb.getInfoByToken(token);
-        	if(fi.getId() == id || true /* DEBUG */) {
+        	if(fi != null) {
         		p = Person.getPersonFromFB(fi.getId());
-        	} else {
+                System.out.println("---> Reading Person by id = "+p.getId());
+
+            } else {
         		System.err.println("User Not Authorized to read these data");
         	}
 
