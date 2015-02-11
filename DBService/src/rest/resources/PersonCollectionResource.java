@@ -163,7 +163,7 @@ public class PersonCollectionResource {
             {
                 p= new Person();
                 p.setFirstname(fi.getFirst_name());
-                p.setId((long) fi.getId());
+                p.setFb_id(fi.getId());
                 p = Person.savePerson(p);
                 newMeasure.setPerson(p);
                 newMeasure.setTodayDate();

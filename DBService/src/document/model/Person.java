@@ -259,7 +259,9 @@ public class Person implements Serializable{
                 .getResultList();
         ModelDao.instance.closeConnections(em);
 
-        return list == null?null:list.get(0);
+        if(list == null || list.size() == 0)
+            return null;
+        return list.get(0);
     }
 
     public static Person savePerson(Person p) {
