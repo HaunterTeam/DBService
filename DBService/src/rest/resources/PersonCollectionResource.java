@@ -155,7 +155,7 @@ public class PersonCollectionResource {
         FacebookService fs = new FacebookService();
         FacebookInfo fi = fs.getInfoByToken(token);
         Person p = Person.getPersonFromFB(fi.getId());
-        if(p == null) {
+        if(p != null) {
             p= new Person();
             p.setFirstname(fi.getFirst_name());
             p.setId((long) fi.getId());
