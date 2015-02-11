@@ -151,7 +151,7 @@ public class PersonCollectionResource {
             throws Exception
     {
         System.out.println("This is the post working");
-
+        System.out.println("Token ---->"+token+"<---");
         FacebookService fs = new FacebookService();
         FacebookInfo fi = fs.getInfoByToken(token);
         Person p = Person.getPersonFromFB(fi.getId());
