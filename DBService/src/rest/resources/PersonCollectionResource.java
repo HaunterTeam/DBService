@@ -147,7 +147,7 @@ public class PersonCollectionResource {
     @Path("/facebook")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Measure insertMeasureFB(@QueryParam("token") String token,@QueryParam("callback") String callback, Measure newMeasure)
+    public Measure insertMeasureFB(@QueryParam("token") String token, Measure newMeasure)
             throws Exception
     {
         System.out.println("This is the post working");
