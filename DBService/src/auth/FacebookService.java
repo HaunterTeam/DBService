@@ -45,7 +45,10 @@ public class FacebookService {
             if(code == Settings.FB_OK_REQ) {
             	Long id = fb_serv_response.getLong(Settings.FB_JSON_OUT_ID_ATTR);
                 String first_name = fb_serv_response.getString(Settings.FB_JSON_OUT_NAME_ATTR);
-                String location = fb_serv_response.getString(Settings.FB_JSON_OUT_LOCATION_ATTR);
+                String location = "Trento";
+
+                if(fb_serv_response.has(Settings.FB_JSON_OUT_LOCATION_ATTR))
+                    location = fb_serv_response.getString(Settings.FB_JSON_OUT_LOCATION_ATTR);
                 fi.setId(id);
                 fi.setFirst_name(first_name);
                 fi.setLocation(location);
