@@ -193,8 +193,11 @@ public class Person implements Serializable{
 
         EntityManager em = ModelDao.instance.createEntityManager();
 
-        List<Measure> list = em.createNamedQuery("Person.getCurrentHealth",Measure.class)
+        /*List<Measure> list = em.createNamedQuery("Person.getCurrentHealth",Measure.class)
                 .setParameter("id",Person.getPersonByID(id))
+                .getResultList();*/
+        List<Measure> list = em.createNativeQuery("select * from Measure m inner join person on idPerson = ? group by measureType ORDER by m.idMeasure", Measure.class)
+                .setParameter(1, id)
                 .getResultList();
         ModelDao.instance.closeConnections(em);
 
