@@ -234,8 +234,10 @@ public class Person implements Serializable{
                 .getResultList();
 
         //one usually do not change height
-        if(current.size() >= 1) //ok, let's assume that someone has forgotten to add his own height
+        if(current.size() > 1) //ok, let's assume that someone has forgotten to add his own height
             height = Double.parseDouble(current.get(current.size() -2).getMeasureValue());
+        else
+            return -1;
 
         current = em.createNamedQuery("Person.getOldHealthForBMI", Measure.class)
                 .setParameter("id", Person.getPersonByID(getId()))
