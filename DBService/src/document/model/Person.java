@@ -30,7 +30,7 @@ import document.dao.ModelDao;
             @NamedQuery(name = "Person.findAllNames", query="select p.firstname from Person p"),
             @NamedQuery(name = "Person.findPeopleByMeasureRange", query="select p from Person p join Measure m where p.id = m.mid and m.measureType = :typeVal and m.measureValue > :minVal and m.measureValue < :maxVal"),
             @NamedQuery(name = "Person.getCurrentHealth", query="select distinct m from Person p join Measure m where :id = m.person group by m.measureType order by m.dateRegistered desc"),
-            @NamedQuery(name="Person.getOldHealthForBMI", query = "select distinct m from Person p join Measure m where :id = m.person and m.measureType = :measure order by m.dateRegistered desc"),
+            @NamedQuery(name="Person.getOldHealthForBMI", query = "select distinct m from Person p join Measure m where :id = m.person and m.measureType = :measure"),
             @NamedQuery(name="Person.findFromFB", query = "select  p from Person p where :fb = p.fb_id")
 
 })
@@ -234,8 +234,8 @@ public class Person implements Serializable{
                 .getResultList();
 
         //one usually do not change height
-        if(current.size() > 0) //ok, let's assume that someone has forgotten to add his own height
-            height = Double.parseDouble(current.get(0).getMeasureValue());
+        if(current.size() >= 1) //ok, let's assume that someone has forgotten to add his own height
+            height = Double.parseDouble(current.get(current.size() -2).getMeasureValue());
 
         current = em.createNamedQuery("Person.getOldHealthForBMI", Measure.class)
                 .setParameter("id", Person.getPersonByID(getId()))
@@ -246,7 +246,7 @@ public class Person implements Serializable{
         //there are no older records of height
         if(current.size() <= 1)
             return -1;
-        weight = Double.parseDouble(current.get(1).getMeasureValue());
+        weight = Double.parseDouble(current.get(current.size()-2).getMeasureValue());
 
         return weight / ((height/100)*(height/100));
     }

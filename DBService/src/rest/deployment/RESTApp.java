@@ -10,10 +10,10 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 public class RESTApp extends Thread
 {
-    //private static final URI BASE_URI = URI.create("http://localhost:9091/dbservice/");
+    private static final URI BASE_URI = URI.create("http://localhost:9091/dbservice/");
 
     //deployment url
-    private static final URI BASE_URI = URI.create("http://95.85.59.245:8086/dbservice/");
+    //private static final URI BASE_URI = URI.create("http://95.85.59.245:8086/dbservice/");
     public  void run ()
     {
     	System.out.println("Starting RESTFul DB Service...");
