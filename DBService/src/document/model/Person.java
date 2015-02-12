@@ -29,7 +29,7 @@ import document.dao.ModelDao;
 @NamedQueries({@NamedQuery(name="Person.findAll", query="SELECT p from Person p"),
             @NamedQuery(name = "Person.findAllNames", query="select p.firstname from Person p"),
             @NamedQuery(name = "Person.findPeopleByMeasureRange", query="select p from Person p join Measure m where p.id = m.mid and m.measureType = :typeVal and m.measureValue > :minVal and m.measureValue < :maxVal"),
-            @NamedQuery(name = "Person.getCurrentHealth", query="select distinct m from Person p join Measure m where :id = m.person group by m.measureType order by m.dateRegistered desc"),
+            @NamedQuery(name = "Person.getCurrentHealth", query="select distinct m from Person p join Measure m where :id = m.person group by m.measureType order by m.mid desc"),
             @NamedQuery(name="Person.getOldHealthForBMI", query = "select distinct m from Person p join Measure m where :id = m.person and m.measureType = :measure"),
             @NamedQuery(name="Person.findFromFB", query = "select  p from Person p where :fb = p.fb_id")
 
